@@ -17,7 +17,7 @@ function verifyProtocol(obj) {
 
 // BaseRouter
 export default class BaseRouter {
-  constructor(options) {
+  constructor(...presetsOrOptions) {
     verifyProtocol(this);
 
     this._options = {
@@ -27,8 +27,14 @@ export default class BaseRouter {
       decode: decodeBase64,
       decompress: (str) => str,
       deserialize: parseJson,
-      ...options,
     };
+
+    for (let i in presetsOrOptions) {
+      this._options = {
+        ...this._options,
+        ...presetsOrOptions[i],
+      };
+    }
 
     this._currentState = {};
     this._running = false;
