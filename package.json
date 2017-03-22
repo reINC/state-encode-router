@@ -1,0 +1,36 @@
+{
+  "name": "state-encode-router",
+  "version": "0.1.0",
+  "description": "A History API wrapper to sync URL with state object",
+  "keywords": [
+    "router",
+    "state",
+    "redux"
+  ],
+  "author": "reINC",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reINC/state-encode-router.git"
+  },
+  "bugs": {
+    "url": "https://github.com/reINC/state-encode-router/issues"
+  },
+  "homepage": "https://github.com/reINC/state-encode-router#readme",
+  "main": "dist\\index.js",
+  "files": [
+    "dist",
+    "example"
+  ],
+  "scripts": {
+    "prepublish": "webpack"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "^1.2.2",
+    "webpack": "^2.2.1"
+  }
+}
