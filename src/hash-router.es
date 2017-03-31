@@ -1,13 +1,12 @@
-import BaseRouter from './base-router.es';
-import { encodeBase64, decodeBase64, parseJson, notifyListeners } from './utils.es';
+import BaseRouter, { notifyListenersOnStateChange } from './base-router.es';
+import { encodeBase64, decodeBase64, parseJson } from './utils.es';
 
 // Private methods
 function onStateChange() {
-  const state = this.parseHash(window.location.hash);
-
-  if (JSON.stringify(state) !== JSON.stringify(this._currentState)) {
-    this._currentState = state;
-    notifyListeners(this._navigationListeners, state);
+  try {
+    notifyListenersOnStateChange.call(this, this.parseHash(window.location.hash));
+  } catch (e) {
+    this._options.onRoutingError(e);
   }
 }
 

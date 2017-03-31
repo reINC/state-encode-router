@@ -1,4 +1,4 @@
-import { encodeBase64, decodeBase64, parseJson } from './utils.es';
+import { encodeBase64, decodeBase64, parseJson, notifyListeners } from './utils.es';
 
 // Helper functions
 function verifyProtocol(obj) {
@@ -10,8 +10,16 @@ function verifyProtocol(obj) {
 
   for (let i in requiredMethods) {
     if (!obj[requiredMethods[i]]) {
-      throw new Error(`Method ${requiredMethods[i]} not implemented`);
+      throw new Error(`Method "${requiredMethods[i]}" not implemented`);
     }
+  }
+}
+
+// Private methods
+export function notifyListenersOnStateChange(state) {
+  if (JSON.stringify(state) !== JSON.stringify(this._currentState)) {
+    this._currentState = state;
+    notifyListeners(this._navigationListeners, state);
   }
 }
 
@@ -21,11 +29,15 @@ export default class BaseRouter {
     verifyProtocol(this);
 
     this._options = {
+      currentVersion: 0,
+      migrateVersion: function () { throw new Error('migrateVersion not implemented'); },
+      onRoutingError: (e) => { throw e; },
+
       serialize: JSON.stringify,
-      compress: (str) => str,
+      compress: (data) => data,
       encode: encodeBase64,
       decode: decodeBase64,
-      decompress: (str) => str,
+      decompress: (data) => data,
       deserialize: parseJson,
     };
 

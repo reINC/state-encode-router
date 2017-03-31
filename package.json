@@ -1,6 +1,6 @@
 {
   "name": "state-encode-router",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A History API wrapper to sync URL with state object",
   "keywords": [
     "router",
