@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>PathRouter Example</title>
+<title>Router Example with PathRoutingStrategy</title>
 <script src="../dist/index.js"></script>
 </head>
 <body>
@@ -11,20 +11,32 @@
   State JSON:<br>
   <textarea id="stateJsonInput"></textarea><br>
   <button id="navigateButton">Navigate</button>
+  <button id="startButton">Start</button>
+  <button id="stopButton">Stop</button>
 </p>
 
 <h1>Logs</h1>
 <div id="log"></div>
 
 <script>
-  var router = new StateEncodeRouter.PathRouter({ basePath: window.location.pathname + '/' }).addNavigationListener(function (state) {
+  var router = new StateEncodeRouter.Router({
+    routingStrategy: new StateEncodeRouter.PathRoutingStrategy({ basePath: window.location.pathname + '/' }),
+  }).addStateChangeListener(function (state) {
     var p = document.createElement('p');
     p.innerText = 'Navigation:\nPath: ' + window.location.pathname + '\nState: ' + JSON.stringify(state);
     document.getElementById('log').appendChild(p);
-  }).start();
+  });
 
   document.getElementById('navigateButton').addEventListener('click', function (e) {
     router.navigate(JSON.parse(document.getElementById('stateJsonInput').value || '{}'));
+  });
+
+  document.getElementById('startButton').addEventListener('click', function () {
+    router.start();
+  });
+
+  document.getElementById('stopButton').addEventListener('click', function () {
+    router.stop();
   });
 </script>
 

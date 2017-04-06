@@ -1,6 +1,6 @@
-export { default as BaseRouter } from './base-router.es';
-export { default as HashRouter } from './hash-router.es';
-export { default as PathRouter } from './path-router.es';
+export { default as Router } from './router.es';
+export { default as HashRoutingStrategy } from './hash-routing-strategy.es';
+export { default as PathRoutingStrategy } from './path-routing-strategy.es';
 
-import * as Utils from './utils.es';
-export { Utils };
+import * as presetDefault from './preset-default.es';
+export { presetDefault };
